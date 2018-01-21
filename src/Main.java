@@ -14,31 +14,35 @@ public class Main {
     }
 
     public static int singleNumber(final List<Integer> a) {
-        HashMap<Integer,Integer> counts = new HashMap<Integer, Integer>();
+        // Define a hashmap object
+        HashMap<Integer, Integer> hashmap = new HashMap<Integer, Integer>();
 
+        //count the numbers in the list: check if it's already added into the map and increase the count
         for (int i=0;i<a.size();i++){
-            if (counts.get(a.get(i))!= null){
-                counts.put(a.get(i),counts.get(a.get(i))+1);
+            if(hashmap.get(a.get(i)) != null){
+                hashmap.put(a.get(i), hashmap.get(a.get(i))+1);
             }
             else{
-                counts.put(a.get(i),1);
+                hashmap.put(a.get(i), 1);
             }
         }
 
-        Object[] keys = counts.keySet().toArray();
 
+        // Read the counts in the hashmap and stop when reached to count 1: extract the keys into an array and check the key values
+        Object[] keys = hashmap.keySet().toArray();
         boolean flag = false;
-        Integer pointer = 0;
+        int pointer = 0;
 
-        while (!flag && pointer < keys.length){
-            if (Integer.parseInt(counts.get(keys[pointer]).toString())==1){
+        while (!flag && pointer < hashmap.size()){
+            if (hashmap.get(keys[pointer]).toString().equals("1")){
                 flag = true;
             }
-            else {
+            else{
                 pointer++;
             }
         }
 
+        //Print out the number with count 1
         if (flag){
             return Integer.parseInt(keys[pointer].toString());
         }
